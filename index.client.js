@@ -3,12 +3,15 @@
 
     vp.proxy = vp.send;
     vp.send = function(o) {
-        var rd = JSON.parse(o);
+        try {
+            var rd = JSON.parse(o);
 
-        var ctx = rd.context;
+            var ctx = rd.context;
 
-        ctx.clickTracking = undefined;
+            ctx.clickTracking = undefined;
 
-        this.proxy(JSON.stringify(rd));
+            o = JSON.stringify(rd);
+        } catch(e) {}
+        this.proxy(o);
     }
 })(XMLHttpRequest);
